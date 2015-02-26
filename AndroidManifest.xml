@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.android.shakeanswer"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <application
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/appname"
+        android:theme="@style/AppTheme" >   
+             
+        <activity android:name=".MainActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait" 
+        	android:theme="@android:style/Theme.NoTitleBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        
+        <receiver android:name=".PhoneReceiver">
+            
+            <intent-filter>
+                <action android:name="android.intent.action.PHONE_STATE" />
+            </intent-filter>
+            
+            <intent-filter>
+                <action android:name="com.android.shakeanswer.PhoneReceiver" />
+            </intent-filter>
+            
+        </receiver>
+        
+    </application>
+
+    <uses-sdk android:minSdkVersion="8" />
+
+</manifest>

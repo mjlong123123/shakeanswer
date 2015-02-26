@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string name="appname">DragonShakeAnswer</string>
+    <string name="answer">现在您已经可以通过本程序启动摇一摇接听电话功能了。\n在点击启动按钮后向自己的手机拨通一个电话试一试吧。\n注意：手机重新启动时请手动启动本功能。</string>
+    <string name="btn_start">启动</string>
+    <string name="btn_end">停止</string>
+    <string name="tost_start">已经启动</string>
+    <string name="tost_end">已经停止</string>
+</resources>
