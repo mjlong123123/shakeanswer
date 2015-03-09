@@ -23,28 +23,31 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
+import android.widget.Button;
+import android.widget.TextView;
 
 public class CheckShakeActivity extends Activity implements
-		SensorEventListener, Callback {
+		SensorEventListener, Callback, View.OnClickListener{
 	private static final String TAG = "MainActivity";
 	private static final boolean DEBUG = true;
-	
-	private enum State{
-		SAMPLE,//采样
-		SET,//设置特征点
-		DEFAULT//默认值
-	}
-	
-	private State mState = State.SAMPLE;
-	
+
+	private static int DISTENCE = 10;
+
+	private static final int STATE_MIN = 0;
+	private static final int STATE_SAMPLE = STATE_MIN + 1;
+	private static final int STATE_SET = STATE_SAMPLE + 1;
+	private static final int STATE_TEST = STATE_SET + 1;
+	private static final int STATE_OVER = STATE_TEST + 1;
+	private static final int STATE_MAX = STATE_OVER + 1;
+
+	private int mState = STATE_MIN;
+
 	private SensorManager mSensorManager;
 	private Sensor sensor;
 	private SurfaceView mSurfaceView = null;
 	private SurfaceHolder mSurfaceHolder = null;
 
-	private static final int DISTENCE = 10;
 	private int mSurfaceW = 0;
 	private int mSurfaceH = 0;
 	private Rect mDrawingRect = new Rect();
@@ -60,48 +63,37 @@ public class CheckShakeActivity extends Activity implements
 	private Rect mSelectedRect = null;
 	private float mLastx = 0;
 	private float mLasty = 0;
-	private boolean mHaveRect = false;
+	
+	private Button mButtonBack;
+	private Button mButtonNext;
+	private TextView mMsg;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_check);
+		
+		int w = getWindowManager().getDefaultDisplay().getWidth();
+		DISTENCE = (int) (w / 144.0);
+
+		mButtonBack = (Button)findViewById(R.id.button_back);
+		mButtonBack.setOnClickListener(this);
+		mButtonNext = (Button)findViewById(R.id.button_next);
+		mButtonNext.setOnClickListener(this);
+		mMsg = (TextView)findViewById(R.id.tv);
+		
 		mSurfaceView = (SurfaceView) findViewById(R.id.sv);
 		mSurfaceView.getHolder().addCallback(this);
 		mSurfaceView.getHolder().setType(
 				SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
 
-		// mSurfaceView.setZOrderOnTop(true);
 		mSurfaceView.getHolder().setFormat(PixelFormat.TRANSLUCENT);
-		mSurfaceView.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View arg0) {
-
-				if(mState == State.SAMPLE)
-				{
-					mState = State.SET;
-				}
-				else if(mState == State.SET)
-				{
-					mState = State.SAMPLE;
-					sortRect();
-				}
-
-				if (mRects[0] == null) {
-					int ww = DISTENCE * 8;
-					for (int i = 0; i < mRects.length; i++) {
-						mRects[i] = new Rect(ww * i, 0, ww * (i + 1), ww);
-					}
-				}
-				reDraw();
-			}
-		});
+		
 		mSurfaceView.setOnTouchListener(new OnTouchListener() {
 
 			@Override
 			public boolean onTouch(View arg0, MotionEvent arg1) {
 				boolean ret = false;
-				if (mState == State.SET) {
+				if (mState == STATE_SET) {
 					int action = arg1.getAction();
 					switch (action) {
 					case MotionEvent.ACTION_DOWN:
@@ -136,6 +128,8 @@ public class CheckShakeActivity extends Activity implements
 				return ret;
 			}
 		});
+		
+		
 	}
 
 	@Override
@@ -171,7 +165,7 @@ public class CheckShakeActivity extends Activity implements
 		}
 
 		if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-			if (mState == State.SET)
+			if (mState == STATE_SET || mState == STATE_OVER)
 				return;
 
 			double ret = 0.0f;
@@ -205,6 +199,7 @@ public class CheckShakeActivity extends Activity implements
 				if (mRects[0] != null && containRect(0, mPoints.size() - 1)) {
 					Log.e(TAG,
 							"ok okok okok okok okok okok okok okok okok okok okok okok okok okok ok");
+					changeState(true);
 				}
 
 				mLastRet = ret;
@@ -243,6 +238,7 @@ public class CheckShakeActivity extends Activity implements
 		mPaint2.setColor(Color.parseColor("#5fff00ff"));
 		mPaint2.setStrokeWidth(2.0f);
 
+		changeState(true);
 	}
 
 	@Override
@@ -292,7 +288,6 @@ public class CheckShakeActivity extends Activity implements
 			for (int i = 0; i < mRects.length; i++) {
 				Log.e(TAG, "rect " + mRects[i].left);
 			}
-		mHaveRect = true;
 	}
 
 	private boolean containRect(int startRec, int pointPosition) {
@@ -313,5 +308,78 @@ public class CheckShakeActivity extends Activity implements
 			}
 		}
 		return ret;
+	}
+
+	private void changeState(boolean next) {
+		if (next) {
+			mState++;
+			if (mState == STATE_MAX) {
+				finish();
+			}
+		} else {
+			mState--;
+
+			if (mState == STATE_MIN) {
+				mState = STATE_MIN + 1;
+			}
+		}
+
+		switch (mState) {
+		case STATE_SAMPLE:
+			mButtonBack.setClickable(false);
+			mButtonNext.setClickable(true);
+			mMsg.setText(R.string.msg_sample);
+			break;
+		case STATE_SET:
+			mButtonBack.setClickable(true);
+			mButtonNext.setClickable(true);
+			mMsg.setText(R.string.msg_set);
+			
+			if (mRects[0] == null) {
+				int ww = DISTENCE * 8;
+				for (int i = 0; i < mRects.length; i++) {
+					mRects[i] = new Rect(ww * i, 0, ww * (i + 1), ww);
+				}
+			}
+			sortRect();
+
+			reDraw();
+			break;
+		case STATE_TEST:
+			mButtonBack.setClickable(true);
+			mButtonNext.setClickable(true);
+			mMsg.setText(R.string.msg_test);
+			break;
+		case STATE_OVER:
+			mButtonBack.setClickable(true);
+			mButtonNext.setClickable(true);
+			mButtonNext.setText(R.string.btn_ok);
+			mMsg.setText(R.string.msg_over);
+			if (mRects[0] == null) {
+				int ww = DISTENCE * 8;
+				for (int i = 0; i < mRects.length; i++) {
+					mRects[i] = new Rect(ww * i, 0, ww * (i + 1), ww);
+				}
+			}
+			
+			sortRect();
+
+			reDraw();
+			break;
+		}
+	}
+
+	@Override
+	public void onClick(View v) {
+		int id = v.getId();
+		switch(id){
+		case R.id.button_back:
+			changeState(false);
+			break;
+		case R.id.button_next:
+			changeState(true);
+			break;
+		}
+		
 	}
 }
