@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="@android:color/white" >
 
     <Button
         android:id="@+id/btn1"
@@ -9,9 +10,13 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:paddingLeft="8dip"
-        android:paddingRight="8dip"
-        android:text="Button" />
+        android:background="@drawable/button_selector1"
+        android:paddingBottom="10dip"
+        android:paddingLeft="40dip"
+        android:paddingRight="40dip"
+        android:paddingTop="10dip"
+        android:text="Button"
+        android:textSize="25dip" />
 
     <TextView
         android:id="@+id/tv_msg"
@@ -22,6 +27,7 @@
         android:gravity="center"
         android:padding="30dip"
         android:text="@string/answer"
+        android:textColor="@android:color/holo_blue_light"
         android:textSize="20dip" />
 
 </RelativeLayout>

@@ -9,32 +9,37 @@
     <application
         android:icon="@drawable/ic_launcher"
         android:label="@string/appname"
-        android:theme="@style/AppTheme" >   
-             
-        <activity android:name=".MainActivity"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".MainActivity"
             android:configChanges="keyboardHidden|orientation"
-            android:screenOrientation="portrait" 
-        	android:theme="@android:style/Theme.NoTitleBar">
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
-        <receiver android:name=".PhoneReceiver">
-            
+        <activity
+            android:name=".CheckShakeActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar" >
+        </activity>
+
+        <receiver android:name=".PhoneReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.PHONE_STATE" />
             </intent-filter>
-            
             <intent-filter>
                 <action android:name="com.android.shakeanswer.PhoneReceiver" />
             </intent-filter>
-            
         </receiver>
-        
     </application>
 
-    <uses-sdk android:minSdkVersion="8" />
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="14" />
 
 </manifest>

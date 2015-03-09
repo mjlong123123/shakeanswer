@@ -26,15 +26,23 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 
-public class CopyOfMainActivity extends Activity implements SensorEventListener,
-		Callback {
+public class CheckShakeActivity extends Activity implements
+		SensorEventListener, Callback {
 	private static final String TAG = "MainActivity";
 	private static final boolean DEBUG = true;
+	
+	private enum State{
+		SAMPLE,//采样
+		SET,//设置特征点
+		DEFAULT//默认值
+	}
+	
+	private State mState = State.SAMPLE;
+	
 	private SensorManager mSensorManager;
 	private Sensor sensor;
 	private SurfaceView mSurfaceView = null;
 	private SurfaceHolder mSurfaceHolder = null;
-	private boolean mBreak = false;
 
 	private static final int DISTENCE = 10;
 	private int mSurfaceW = 0;
@@ -48,7 +56,7 @@ public class CopyOfMainActivity extends Activity implements SensorEventListener,
 	private Paint mPaint2 = new Paint();
 	private boolean mClear = true;
 	private ArrayList<Point> mPoints = new ArrayList<Point>();
-	private Rect [] mRects = new Rect[4];
+	private Rect[] mRects = new Rect[4];
 	private Rect mSelectedRect = null;
 	private float mLastx = 0;
 	private float mLasty = 0;
@@ -56,7 +64,7 @@ public class CopyOfMainActivity extends Activity implements SensorEventListener,
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.activity_check);
 		mSurfaceView = (SurfaceView) findViewById(R.id.sv);
 		mSurfaceView.getHolder().addCallback(this);
 		mSurfaceView.getHolder().setType(
@@ -69,46 +77,48 @@ public class CopyOfMainActivity extends Activity implements SensorEventListener,
 			@Override
 			public void onClick(View arg0) {
 
-				mBreak = !mBreak;
-				if(!mBreak)
-					sortRect();
-				
-				if(mRects[0] == null)
+				if(mState == State.SAMPLE)
 				{
-					int ww = DISTENCE*8;
-					for(int i = 0; i < mRects.length; i++)
-					{
-						mRects[i] = new Rect(ww*i, 0, ww*(i+1), ww);
+					mState = State.SET;
+				}
+				else if(mState == State.SET)
+				{
+					mState = State.SAMPLE;
+					sortRect();
+				}
+
+				if (mRects[0] == null) {
+					int ww = DISTENCE * 8;
+					for (int i = 0; i < mRects.length; i++) {
+						mRects[i] = new Rect(ww * i, 0, ww * (i + 1), ww);
 					}
 				}
 				reDraw();
 			}
 		});
 		mSurfaceView.setOnTouchListener(new OnTouchListener() {
-			
+
 			@Override
 			public boolean onTouch(View arg0, MotionEvent arg1) {
 				boolean ret = false;
-				if(mBreak)
-				{
+				if (mState == State.SET) {
 					int action = arg1.getAction();
-					switch(action)
-					{
+					switch (action) {
 					case MotionEvent.ACTION_DOWN:
 						mLastx = arg1.getX();
 						mLasty = arg1.getY();
-						
-						mSelectedRect = getRect(mLastx,mLasty);
-						if(mSelectedRect != null)
+
+						mSelectedRect = getRect(mLastx, mLasty);
+						if (mSelectedRect != null)
 							ret = true;
 						break;
 
 					case MotionEvent.ACTION_MOVE:
 						float offsetx = arg1.getX();
 						float offsety = arg1.getY();
-						if(mSelectedRect != null)
-						{
-							mSelectedRect.offset((int)(offsetx-mLastx), (int)(offsety-mLasty));
+						if (mSelectedRect != null) {
+							mSelectedRect.offset((int) (offsetx - mLastx),
+									(int) (offsety - mLasty));
 							reDraw();
 							ret = true;
 						}
@@ -120,7 +130,7 @@ public class CopyOfMainActivity extends Activity implements SensorEventListener,
 					case MotionEvent.ACTION_CANCEL:
 						mSelectedRect = null;
 						break;
-						
+
 					}
 				}
 				return ret;
@@ -161,7 +171,7 @@ public class CopyOfMainActivity extends Activity implements SensorEventListener,
 		}
 
 		if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-			if (mBreak)
+			if (mState == State.SET)
 				return;
 
 			double ret = 0.0f;
@@ -191,12 +201,12 @@ public class CopyOfMainActivity extends Activity implements SensorEventListener,
 				canvas.drawLine(mStartX, 0, mStartX, mSurfaceH, mPaint);
 
 				mPoints.add(new Point((int) mStartX, (int) (mStartY + mLastRet)));
-				
-				if(mRects[0] != null &&containRect(0, mPoints.size()-1))
-				{
-					Log.e(TAG, "ok okok okok okok okok okok okok okok okok okok okok okok okok okok ok");
+
+				if (mRects[0] != null && containRect(0, mPoints.size() - 1)) {
+					Log.e(TAG,
+							"ok okok okok okok okok okok okok okok okok okok okok okok okok okok ok");
 				}
-				
+
 				mLastRet = ret;
 				mStartX += DISTENCE;
 				if (mStartX >= mSurfaceW) {
@@ -238,106 +248,68 @@ public class CopyOfMainActivity extends Activity implements SensorEventListener,
 	@Override
 	public void surfaceDestroyed(SurfaceHolder arg0) {
 	}
-	
-	
-	private void reDraw()
-	{
+
+	private void reDraw() {
 		Canvas can = mSurfaceHolder.lockCanvas();
 		can.drawColor(Color.WHITE);
-		if(mPoints.size()>2)
-		{
+		if (mPoints.size() > 2) {
 			Point prepoint = mPoints.get(0);
 			Point curpoint = null;
-			for(int i = 1; i < mPoints.size(); i++)
-			{
+			for (int i = 1; i < mPoints.size(); i++) {
 				curpoint = mPoints.get(i);
-				can.drawLine(prepoint.x, prepoint.y, curpoint.x, curpoint.y, mPaint);
-				prepoint=curpoint;
+				can.drawLine(prepoint.x, prepoint.y, curpoint.x, curpoint.y,
+						mPaint);
+				prepoint = curpoint;
 			}
 		}
-		for(int i = 0; i < mRects.length; i++)
-		{
+		for (int i = 0; i < mRects.length; i++) {
 			can.drawRect(mRects[i], mPaint2);
 		}
-		
+
 		mSurfaceHolder.unlockCanvasAndPost(can);
 	}
-	
-	
-	private Rect getRect(float x, float y)
-	{
-		for(Rect rect:mRects)
-		{
-			if(rect.contains((int)x, (int)y))
-			{
+
+	private Rect getRect(float x, float y) {
+		for (Rect rect : mRects) {
+			if (rect.contains((int) x, (int) y)) {
 				return rect;
 			}
 		}
 		return null;
 	}
-	
-	private void sortRect()
-	{
+
+	private void sortRect() {
 		int start = 1;
 		Rect rect = null;
-		for(int i=start; i < mRects.length && start < mRects.length; i++,start++)
-		{
-			if(mRects[i-1].left < mRects[i].left)
-			{
-				rect = mRects[i-1];
-				mRects[i-1] = mRects[i];
+		for (int i = start; i < mRects.length && start < mRects.length; i++, start++) {
+			if (mRects[i - 1].left < mRects[i].left) {
+				rect = mRects[i - 1];
+				mRects[i - 1] = mRects[i];
 				mRects[i] = rect;
 			}
 		}
-		if(DEBUG)
-		for(int i = 0; i < mRects.length; i++)
-		{
-			Log.e(TAG, "rect "+mRects[i].left);
-		}
+		if (DEBUG)
+			for (int i = 0; i < mRects.length; i++) {
+				Log.e(TAG, "rect " + mRects[i].left);
+			}
 		mHaveRect = true;
 	}
-	
-//	private boolean checkRect(int x, int y)
-//	{
-//		boolean ret = false;
-//		if(mRects[0].contains((int) mStartX, (int) (mStartY + mLastRet)))
-//		{
-//			int dis = mRects[0].left-mRects[1].left;
-//			int scal = dis/DISTENCE;
-//			int position = 0;
-//			position = mPoints.size() - scal;
-//			if(position >= 0)
-//			{
-//				if(mRects[1].contains(mPoints.get(position).x, mPoints.get(position).y))
-//				{
-//					
-//					
-//					
-//					
-//				}
-//			}
-//		}
-//		return ret;
-//	}
-	
-	private boolean containRect(int startRec, int pointPosition)
-	{
+
+	private boolean containRect(int startRec, int pointPosition) {
 		boolean ret = false;
-		if(startRec < 0 || startRec >= mRects.length-1)
+		if (startRec < 0 || startRec >= mRects.length - 1)
 			return true;
-		if(pointPosition >= mPoints.size()||pointPosition <0)
+		if (pointPosition >= mPoints.size() || pointPosition < 0)
 			return ret;
 		Point point = mPoints.get(pointPosition);
-		
-		if(mRects[startRec].contains(point.x, point.y))
-		{
-			int dis = mRects[startRec].left-mRects[startRec+1].left;
-			int scal = dis/DISTENCE;
+
+		if (mRects[startRec].contains(point.x, point.y)) {
+			int dis = mRects[startRec].left - mRects[startRec + 1].left;
+			int scal = dis / DISTENCE;
 			int position = 0;
 			position = pointPosition - scal;
-			if(position >= 0)
-			{
-				ret = containRect(startRec+1,position);
+			if (position >= 0) {
+				ret = containRect(startRec + 1, position);
 			}
 		}
 		return ret;
