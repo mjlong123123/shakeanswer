@@ -5,6 +5,8 @@
     android:versionName="1.0" >
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:icon="@drawable/ic_launcher"
@@ -36,10 +38,12 @@
                 <action android:name="com.android.shakeanswer.PhoneReceiver" />
             </intent-filter>
         </receiver>
+
+        <service android:name="AutoAnswerIntentService" />
     </application>
 
     <uses-sdk
-        android:minSdkVersion="14"
+        android:minSdkVersion="8"
         android:targetSdkVersion="14" />
 
 </manifest>

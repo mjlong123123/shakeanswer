@@ -2,9 +2,6 @@ package com.android.shakeanswer;
 
 import android.app.Activity;
 import android.content.ComponentName;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
@@ -23,6 +20,16 @@ public class MainActivity extends Activity implements View.OnClickListener {
 		findView();
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+	}
+
 	private void findView() {
 		btn1 = (Button) findViewById(R.id.btn1);
 		btn1.setOnClickListener(this);
@@ -37,14 +44,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.btn1:
-			
-			if(checkShake())
-			{
-				Intent intent = new Intent();
-				intent.setClass(MainActivity.this, CheckShakeActivity.class);
-				MainActivity.this.startActivity(intent);
-				break;
-			}
+
 			if (checkReceiver()) {
 				setReceiverEnable(false);
 				btn1.setText(R.string.btn_start);
@@ -75,21 +75,5 @@ public class MainActivity extends Activity implements View.OnClickListener {
 		boolean ret = getPackageManager().getComponentEnabledSetting(receiver) == PackageManager.COMPONENT_ENABLED_STATE_ENABLED ? true
 				: false;
 		return ret;
-	}
-	
-	
-	private boolean checkShake()
-	{
-		boolean ret = false;
-		SharedPreferences sp = getSharedPreferences("check_shake", MODE_PRIVATE);
-		ret = sp.getBoolean("check_shake", true);
-		return ret;
-	}
-	
-	private void setCheckShake(boolean flag)
-	{
-		Editor ed = getSharedPreferences("check_shake", MODE_PRIVATE).edit();
-		ed.putBoolean("check_shake", flag);
-		ed.commit();
 	}
 }
