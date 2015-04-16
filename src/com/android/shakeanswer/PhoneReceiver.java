@@ -32,7 +32,9 @@ public class PhoneReceiver extends BroadcastReceiver {
 
 					@Override
 					public void notifyOpen() {
-						answerRingingCall(context);
+//						answerRingingCall(context);
+						 context.startService(new
+						 Intent(context,AutoAnswerIntentService.class));
 					}
 				});
 			} else if (state.equals("OFFHOOK")) {
@@ -54,10 +56,47 @@ public class PhoneReceiver extends BroadcastReceiver {
 
 					@Override
 					public void notifyOpen() {
-//						answerRingingCall(context);
-						
-						context.startService(new Intent(context,AutoAnswerIntentService.class));
-						
+						// answerRingingCall(context);
+						//
+						// context.startService(new
+						// Intent(context,AutoAnswerIntentService.class));
+
+						try {
+
+							Log.e("Sandy", "for version 4.1 or larger");
+
+							Intent intent = new Intent(
+									"android.intent.action.MEDIA_BUTTON");
+
+							KeyEvent keyEvent = new KeyEvent(
+									KeyEvent.ACTION_UP,
+									KeyEvent.KEYCODE_HEADSETHOOK);
+
+							intent.putExtra("android.intent.extra.KEY_EVENT",
+									keyEvent);
+
+							context.sendOrderedBroadcast(intent,
+									"android.permission.CALL_PRIVILEGED");
+
+						} catch (Exception e2) {
+
+							Log.d("Sandy", "", e2);
+
+							Intent meidaButtonIntent = new Intent(
+									Intent.ACTION_MEDIA_BUTTON);
+
+							KeyEvent keyEvent = new KeyEvent(
+									KeyEvent.ACTION_UP,
+									KeyEvent.KEYCODE_HEADSETHOOK);
+
+							meidaButtonIntent.putExtra(Intent.EXTRA_KEY_EVENT,
+									keyEvent);
+
+							context.sendOrderedBroadcast(meidaButtonIntent,
+									null);
+
+						}
+
 					}
 				});
 			} else if (state.equals("OFFHOOK")) {

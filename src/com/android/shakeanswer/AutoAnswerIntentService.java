@@ -21,7 +21,7 @@ public class AutoAnswerIntentService extends IntentService {
 	@Override
 	protected void onHandleIntent(Intent intent) {
 		Context context = getBaseContext();
-
+		Log.e("dragon", "handle intent");
 		// Load preferences
 		SharedPreferences prefs = PreferenceManager
 				.getDefaultSharedPreferences(context);
@@ -39,6 +39,8 @@ public class AutoAnswerIntentService extends IntentService {
 		TelephonyManager tm = (TelephonyManager) context
 				.getSystemService(Context.TELEPHONY_SERVICE);
 		if (tm.getCallState() != TelephonyManager.CALL_STATE_RINGING) {
+
+			Log.e("dragon", "handle CALL_STATE_RINGING error");
 			return;
 		}
 
@@ -47,11 +49,12 @@ public class AutoAnswerIntentService extends IntentService {
 			answerPhoneAidl(context);
 		} catch (Exception e) {
 			e.printStackTrace();
+			Log.e("dragon", "handle e:"+e);
 			Log.d("AutoAnswer",
 					"Error trying to answer using telephony service.  Falling back to headset.");
 			answerPhoneHeadsethook(context);
 		}
-
+		answerPhoneHeadsethook(context);
 		// Enable the speakerphone
 		if (prefs.getBoolean("use_speakerphone", false)) {
 			enableSpeakerPhone(context);
@@ -79,6 +82,7 @@ public class AutoAnswerIntentService extends IntentService {
 				KeyEvent.ACTION_UP, KeyEvent.KEYCODE_HEADSETHOOK));
 		context.sendOrderedBroadcast(buttonUp,
 				"android.permission.CALL_PRIVILEGED");
+		Log.e("dragon", "handle answerPhoneHeadsethook");
 	}
 
 	@SuppressWarnings("unchecked")
