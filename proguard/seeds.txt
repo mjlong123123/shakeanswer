@@ -1,0 +1,105 @@
+android.support.v4.app.BackStackState
+android.support.v4.app.BackStackState: android.os.Parcelable$Creator CREATOR
+android.support.v4.app.Fragment$SavedState
+android.support.v4.app.Fragment$SavedState: android.os.Parcelable$Creator CREATOR
+android.support.v4.app.FragmentManagerState
+android.support.v4.app.FragmentManagerState: android.os.Parcelable$Creator CREATOR
+android.support.v4.app.FragmentState
+android.support.v4.app.FragmentState: android.os.Parcelable$Creator CREATOR
+android.support.v4.app.FragmentTabHost: void setOnTabChangedListener(android.widget.TabHost$OnTabChangeListener)
+android.support.v4.app.FragmentTabHost$SavedState
+android.support.v4.app.FragmentTabHost$SavedState: android.os.Parcelable$Creator CREATOR
+android.support.v4.content.ModernAsyncTask$Status: android.support.v4.content.ModernAsyncTask$Status[] values()
+android.support.v4.content.ModernAsyncTask$Status: android.support.v4.content.ModernAsyncTask$Status valueOf(java.lang.String)
+android.support.v4.view.PagerTabStrip: void setTabIndicatorColor(int)
+android.support.v4.view.PagerTabStrip: void setTabIndicatorColorResource(int)
+android.support.v4.view.PagerTabStrip: int getTabIndicatorColor()
+android.support.v4.view.PagerTabStrip: void setTextSpacing(int)
+android.support.v4.view.PagerTabStrip: void setBackgroundDrawable(android.graphics.drawable.Drawable)
+android.support.v4.view.PagerTabStrip: void setBackgroundColor(int)
+android.support.v4.view.PagerTabStrip: void setBackgroundResource(int)
+android.support.v4.view.PagerTabStrip: void setDrawFullUnderline(boolean)
+android.support.v4.view.PagerTabStrip: boolean getDrawFullUnderline()
+android.support.v4.view.PagerTabStrip: int getMinHeight()
+android.support.v4.view.PagerTitleStrip: void setSingleLineAllCaps(android.widget.TextView)
+android.support.v4.view.PagerTitleStrip: void setTextSpacing(int)
+android.support.v4.view.PagerTitleStrip: int getTextSpacing()
+android.support.v4.view.PagerTitleStrip: void setNonPrimaryAlpha(float)
+android.support.v4.view.PagerTitleStrip: void setTextColor(int)
+android.support.v4.view.PagerTitleStrip: void setGravity(int)
+android.support.v4.view.PagerTitleStrip: int getMinHeight()
+android.support.v4.view.ViewPager: void setScrollState(int)
+android.support.v4.view.ViewPager: void setAdapter(android.support.v4.view.PagerAdapter)
+android.support.v4.view.ViewPager: android.support.v4.view.PagerAdapter getAdapter()
+android.support.v4.view.ViewPager: void setOnAdapterChangeListener(android.support.v4.view.ViewPager$OnAdapterChangeListener)
+android.support.v4.view.ViewPager: int getClientWidth()
+android.support.v4.view.ViewPager: void setCurrentItem(int)
+android.support.v4.view.ViewPager: int getCurrentItem()
+android.support.v4.view.ViewPager: void setOnPageChangeListener(android.support.v4.view.ViewPager$OnPageChangeListener)
+android.support.v4.view.ViewPager: void setChildrenDrawingOrderEnabledCompat(boolean)
+android.support.v4.view.ViewPager: int getOffscreenPageLimit()
+android.support.v4.view.ViewPager: void setOffscreenPageLimit(int)
+android.support.v4.view.ViewPager: void setPageMargin(int)
+android.support.v4.view.ViewPager: int getPageMargin()
+android.support.v4.view.ViewPager: void setPageMarginDrawable(android.graphics.drawable.Drawable)
+android.support.v4.view.ViewPager: void setPageMarginDrawable(int)
+android.support.v4.view.ViewPager: void setScrollingCacheEnabled(boolean)
+android.support.v4.view.ViewPager$SavedState
+android.support.v4.view.ViewPager$SavedState: android.os.Parcelable$Creator CREATOR
+android.support.v4.widget.DrawerLayout: void setScrimColor(int)
+android.support.v4.widget.DrawerLayout: void setDrawerListener(android.support.v4.widget.DrawerLayout$DrawerListener)
+android.support.v4.widget.DrawerLayout: void setDrawerLockMode(int)
+android.support.v4.widget.DrawerLayout$SavedState
+android.support.v4.widget.DrawerLayout$SavedState: android.os.Parcelable$Creator CREATOR
+android.support.v4.widget.SlidingPaneLayout: void setParallaxDistance(int)
+android.support.v4.widget.SlidingPaneLayout: int getParallaxDistance()
+android.support.v4.widget.SlidingPaneLayout: void setSliderFadeColor(int)
+android.support.v4.widget.SlidingPaneLayout: int getSliderFadeColor()
+android.support.v4.widget.SlidingPaneLayout: void setCoveredFadeColor(int)
+android.support.v4.widget.SlidingPaneLayout: int getCoveredFadeColor()
+android.support.v4.widget.SlidingPaneLayout: void setPanelSlideListener(android.support.v4.widget.SlidingPaneLayout$PanelSlideListener)
+android.support.v4.widget.SlidingPaneLayout: void setShadowDrawable(android.graphics.drawable.Drawable)
+android.support.v4.widget.SlidingPaneLayout: void setShadowResource(int)
+android.support.v4.widget.SlidingPaneLayout$SavedState
+android.support.v4.widget.SlidingPaneLayout$SavedState: android.os.Parcelable$Creator CREATOR
+com.android.shakeanswer.AutoAnswerIntentService
+com.android.shakeanswer.AutoAnswerIntentService: AutoAnswerIntentService()
+com.android.shakeanswer.BaseActivity: BaseActivity()
+com.android.shakeanswer.MainActivity
+com.android.shakeanswer.MainActivity: MainActivity()
+com.android.shakeanswer.MainActivity: void onClick(android.view.View)
+com.android.shakeanswer.PhoneReceiver
+com.android.shakeanswer.PhoneReceiver: PhoneReceiver()
+com.android.shakeanswer.R$drawable: int button_selector1
+com.android.shakeanswer.R$drawable: int button_shape1
+com.android.shakeanswer.R$drawable: int ic_launcher
+com.android.shakeanswer.R$id: int btn1
+com.android.shakeanswer.R$id: int button_back
+com.android.shakeanswer.R$id: int button_next
+com.android.shakeanswer.R$id: int sv
+com.android.shakeanswer.R$id: int tv
+com.android.shakeanswer.R$id: int tv_msg
+com.android.shakeanswer.R$layout: int activity_check
+com.android.shakeanswer.R$layout: int main
+com.android.shakeanswer.R$string: int answer
+com.android.shakeanswer.R$string: int appname
+com.android.shakeanswer.R$string: int btn_back
+com.android.shakeanswer.R$string: int btn_end
+com.android.shakeanswer.R$string: int btn_next
+com.android.shakeanswer.R$string: int btn_ok
+com.android.shakeanswer.R$string: int btn_start
+com.android.shakeanswer.R$string: int msg_over
+com.android.shakeanswer.R$string: int msg_sample
+com.android.shakeanswer.R$string: int msg_set
+com.android.shakeanswer.R$string: int msg_test
+com.android.shakeanswer.R$string: int tost_end
+com.android.shakeanswer.R$string: int tost_start
+com.android.shakeanswer.R$style: int AppTheme
+com.baidu.kirin.objects.InfoDataType: com.baidu.kirin.objects.InfoDataType[] values()
+com.baidu.kirin.objects.InfoDataType: com.baidu.kirin.objects.InfoDataType valueOf(java.lang.String)
+com.baidu.kirin.objects.KirinCheckState: com.baidu.kirin.objects.KirinCheckState[] values()
+com.baidu.kirin.objects.KirinCheckState: com.baidu.kirin.objects.KirinCheckState valueOf(java.lang.String)
+com.baidu.kirin.objects.NetworkStatus: com.baidu.kirin.objects.NetworkStatus[] values()
+com.baidu.kirin.objects.NetworkStatus: com.baidu.kirin.objects.NetworkStatus valueOf(java.lang.String)
+com.baidu.mobstat.SendStrategyEnum: com.baidu.mobstat.SendStrategyEnum[] values()
+com.baidu.mobstat.SendStrategyEnum: com.baidu.mobstat.SendStrategyEnum valueOf(java.lang.String)

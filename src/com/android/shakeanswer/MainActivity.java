@@ -1,6 +1,5 @@
 package com.android.shakeanswer;
 
-import android.app.Activity;
 import android.content.ComponentName;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -8,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class MainActivity extends Activity implements View.OnClickListener {
+public class MainActivity extends BaseActivity implements View.OnClickListener {
 	private Button btn1 = null;
 	private ComponentName receiver = null;
 
