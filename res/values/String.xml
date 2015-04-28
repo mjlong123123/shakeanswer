@@ -1,17 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     
-    <string name="appname">DragonShakeAnswer</string>
+    <string name="appname">摇一摇接电话</string>
     <string name="answer">现在您已经可以通过本程序启动摇一摇接听电话功能了。\n在点击启动按钮后向自己的手机拨通一个电话试一试吧。\n注意：手机重新启动时请手动启动本功能。</string>
     <string name="btn_start">启动</string>
     <string name="btn_end">停止</string>
     <string name="tost_start">已经启动</string>
     <string name="tost_end">已经停止</string>
-    <string name="btn_back">上一步</string>
-    <string name="btn_next">下一步</string>
-    <string name="btn_ok">完成</string>
-    <string name="msg_sample">请摇晃手机进行采样，在有满意的波形数据后请快速按下一步。</string>
-    <string name="msg_set">请拖动矩形框到波形的波谷处进行标记特征点，标记好特征点后请按下一步。</string>
-    <string name="msg_test">请按照采样时的摇晃方式进行摇晃，当有符合您设置的特征数据时会主动跳转到下一步。</string>
-    <string name="msg_over">匹配摇晃成功。</string>
+
 </resources>
