@@ -22,12 +22,24 @@
         android:id="@+id/tv_msg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
         android:gravity="center"
-        android:padding="30dip"
-        android:text="@string/answer"
+        android:padding="20dip"
+        android:text="msg"
         android:textColor="@android:color/holo_blue_light"
-        android:textSize="20dip" />
+        android:textSize="20dip" 
+        android:layout_below="@+id/tv_about"/>
+
+    <TextView
+        android:id="@+id/tv_about"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="about" 
+        android:textColor="#0000FF"
+        android:textSize="20dip" 
+        android:layout_marginTop="10dip"
+        android:layout_marginRight="10dip"/>
 
 </RelativeLayout>
