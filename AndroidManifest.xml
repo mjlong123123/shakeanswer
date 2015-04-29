@@ -75,6 +75,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".AboutActivity"></activity>
+        <activity android:name=".HelpActivity"></activity>
+        
 
         <receiver android:name=".PhoneReceiver" >
             <intent-filter>

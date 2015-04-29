@@ -52,7 +52,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mAbout = (TextView)findViewById(R.id.tv_about);
         SpannableString sp_about = new SpannableString(getResources().getString(R.string.about));
         sp_about.setSpan(new URLSpan("") {
-			
 			@Override
 			public void onClick(View widget) {
 				Intent intent = new Intent();
@@ -95,6 +94,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 					PackageManager.DONT_KILL_APP);
 			Toast.makeText(this, R.string.tost_end, Toast.LENGTH_SHORT).show();
 		}
+		
 	}
 
 	private boolean checkReceiver() {
