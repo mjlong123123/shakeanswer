@@ -64,19 +64,31 @@
         <!-- 百度统计数据 -->
 
         <activity
-            android:name=".MainActivity"
-            android:configChanges="keyboardHidden|orientation"
-            android:screenOrientation="portrait" 
-            android:theme="@android:style/Theme.NoTitleBar">
+            android:name=".SplashSpotActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Transparent" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AboutActivity"></activity>
-        <activity android:name=".HelpActivity"></activity>
-        
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar" >
+
+            <!--
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            -->
+        </activity>
+        <activity android:name=".AboutActivity" >
+        </activity>
 
         <receiver android:name=".PhoneReceiver" >
             <intent-filter>
@@ -88,7 +100,6 @@
         </receiver>
 
         <service android:name=".AutoAnswerIntentService" />
-
     </application>
 
     <uses-sdk

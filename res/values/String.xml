@@ -2,16 +2,21 @@
 <resources>
     
     <string name="appname">摇一摇接电话</string>
-    <string name="answer">现在您已经可以通过本程序启动摇一摇接听电话功能了。\n在点击启动按钮后向自己的手机拨通一个电话试一试吧。\n注意：手机重新启动时请手动启动本功能。</string>
     
     <string name="msg1">摇一摇接电话\n已经开启</string>
     <string name="msg2">摇一摇接电话\n已经关闭</string>
     
-    <string name="help_msg">  应用可以帮助您方便快速的接听来电</string>
     <string name="about">关于</string>
     <string name="btn_start">启动</string>
     <string name="btn_end">停止</string>
     <string name="tost_start">已经启动</string>
     <string name="tost_end">已经停止</string>
 
+    <string name="about_help">帮助</string>
+    <string name="about_feedback">反馈</string>
+    <string name="about_update">检测更新</string>
+    <string name="about_recommend">应用推荐</string>
+    
+    <string name="ok">确定</string>
+    <string name="dialog_help">摇一摇接电话为用户提供快速接听电话的便捷方式。当摇一摇接听电话功能被开启时，用户可以通过摇晃手机接听电话。用户不用再烦恼戴手套不能接电话的问题了。\n注意：\n1.手机重启后需要手动启动。\n2.被小米手机home键清理后需要手动启动。</string>
 </resources>
